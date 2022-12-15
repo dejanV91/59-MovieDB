@@ -1,36 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
+import UseFetch from "./UseFetch";
 // make sure to use https
 export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API_KEY}`;
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState({ show: false, msg: "" });
-  const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("horse");
-
-  const fetchMovies = async (url) => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.Response === "True") {
-        setMovies(data.Search);
-        setIsError({ show: false, msg: "" });
-      } else {
-        setIsError({ show: true, msg: data.Error });
-      }
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchMovies(`${API_ENDPOINT}&s=${query}`);
-  }, [query]);
+  const { isLoading, isError, datas: movies } = UseFetch(`&s=${query}`);
 
   return (
     <AppContext.Provider
