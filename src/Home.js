@@ -1,7 +1,14 @@
 import React from "react";
+import Movie from "./Movie";
+import SearchForm from "./SearchForm";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <main>
+      <SearchForm />
+      <Movie />
+    </main>
+  );
 };
 
 export default Home;
