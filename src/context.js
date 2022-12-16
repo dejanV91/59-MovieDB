@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import UseFetch from "./UseFetch";
+import useFetch from "./useFetch";
 // make sure to use https
 export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API_KEY}`;
 
@@ -7,7 +7,7 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [query, setQuery] = useState("horse");
-  const { isLoading, isError, datas: movies } = UseFetch(`&s=${query}`);
+  const { isLoading, isError, datas: movies } = useFetch(`&s=${query}`);
 
   return (
     <AppContext.Provider
